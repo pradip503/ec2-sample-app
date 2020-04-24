@@ -5,13 +5,24 @@ var logger = require('morgan');
 var exphs = require('express-handlebars');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
+
+var db= require('./config/db');
+
+db.connect(function(err) {
+    if (err) {
+      console.error('Database connection failed: ' + err.stack);
+      return;
+    }
+  
+    console.log('Connected to database.');
+  });
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -22,7 +33,6 @@ app.engine('handlebars', exphs({defaultLayout: 'index',helpers: {}}));
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // set port
 const PORT  = process.env.PORT || 4500;
