@@ -35,7 +35,7 @@ app.engine('handlebars', exphs({defaultLayout: 'index',helpers: {}}));
 app.use('/', indexRouter);
 
 // set port
-const PORT  = process.env.PORT || 80;
+const PORT  = process.env.PORT || 4500;
 
 
 // listen to server
